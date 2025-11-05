@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Marble Race Mini">
+  <meta property="og:image" content="https://example.com/marble-preview.png">
+  <meta property="og:description" content="Pilih kelereng favoritmu dan lihat siapa yang menang! 🏁">
+  <title>Marble Race Mini</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f0f0f0;
+      margin: 0;
+    }
+    .track {
+      width: 300px;
+      height: 150px;
+      border: 2px solid #333;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .marble {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 2s ease-out;
+    }
+    #controls {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 16px;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🏁 Marble Race Mini</h2>
+  <div class="track" id="track">
+    <div class="marble" id="red" style="background: red; top: 10px;"></div>
+    <div class="marble" id="blue" style="background: blue; top: 60px;"></div>
+    <div class="marble" id="green" style="background: green; top: 110px;"></div>
+  </div>
+
+  <div id="controls">
+    <button id="start">Mulai Balapan</button>
+  </div>
+
+  <h3 id="result"></h3>
+
+  <script>
+    const marbles = [
+      { id: 'red', name: 'Merah' },
+      { id: 'blue', name: 'Biru' },
+      { id: 'green', name: 'Hijau' }
+    ];
+
+    document.getElementById('start').addEventListener('click', () => {
+      const resultText = document.getElementById('result');
+      resultText.textContent = '';
+
+      // Reset posisi
+      marbles.forEach(m => {
+        const el = document.getElementById(m.id);
+        el.style.left = '0px';
+      });
+
+      // Animasi balapan
+      marbles.forEach(m => {
+        const el = document.getElementById(m.id);
+        const distance = Math.random() * 240 + 30; // acak jarak
+        el.style.left = distance + 'px';
+      });
+
+      // Tentukan pemenang
+      const winner = marbles[Math.floor(Math.random() * marbles.length)];
+      setTimeout(() => {
+        resultText.textContent = `🎉 Kelereng ${winner.name} menang!`;
+      }, 2500);
+    });
+  </script>
+</body>
+</html>
